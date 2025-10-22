@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const headX = snake[0].offsetLeft + dx;
     console.log(headX, "head X")
     const headY = snake[0].offsetTop + dy;
-    console.log(headY, "head Y")
+    console.log(headY, "head Y");
 
 
     const maxX = container.getClientRects()[0].width - dotSize;

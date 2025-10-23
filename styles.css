@@ -1,83 +1,22 @@
-/* html,
+html,
 body {
-  height: 100%;
   margin: 0;
   background: greenyellow;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
-#container {
-  position: relative;
-  width: 98vw;
-  height: 92vh;
+#game {
   border: 4px solid grey;
   background: greenyellow;
-  box-sizing: border-box;
-  margin-top: 40px;
+  /* margin-top: 0px; */
 }
 
-#dot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 15px;
-  height: 15px;
-  border: 1px solid black;
-  border-radius: 10%;
-  background: gray;
-}
-
-#food {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  background: red;
-  border-radius: 10%;
-} */
-
-html, body {
-  height: 100%;
-  /* margin: 10; */
-  background: greenyellow;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#container {
-  position: relative;
-  width: 95vw;
-  height: 87vh;
-  border: 4px solid grey;
-  background: greenyellow;
-  /* box-sizing: border-box; */
-  margin-top: 60px;
-}
-
-#dot, .segment {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  /* border: 1px solid black;
-  border-radius: 10%; */
-  background: gray;
-}
-
-#food {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  background: red;
-  border-radius: 10%;
-}
-
-#scoreboard {
-  position: absolute;
-  top: 0px;
-  /* left: 10px; */
-   font-family: "Roboto Mono", monospace;
+#score {
+  font-family: "Roboto Mono", monospace;
   font-size: 30px;
   font-weight: bold;
+  margin-right: auto;
+  margin-bottom: 10px;
 }

@@ -1,88 +1,95 @@
 window.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("container");
-  const head = document.getElementById("dot"); 
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+
   const dotSize = 15;
-  const speed = 15; // move in grid steps
+  canvas.width = Math.floor((95 * window.innerWidth) / 100 / dotSize) * dotSize;
+  canvas.height =
+    Math.floor((87 * window.innerHeight) / 100 / dotSize) * dotSize;
 
-  let dx = speed, dy = 0;
+  let snake = [{ x: 0, y: 0 }];
+  let dx = dotSize;
+  let dy = 0;
 
-  // snake array with head first
-  let snake = [head];
-
-  // create food
-  const food = document.createElement("div");
-  food.id = "food";
-  container.appendChild(food);
+  let food = { x: 0, y: 0 };
 
   function spawnFood() {
-    const cols = container.clientWidth / dotSize;
-    const rows = container.clientHeight / dotSize;
-    const x = Math.floor(Math.random() * cols) * dotSize;
-    const y = Math.floor(Math.random() * rows) * dotSize;
-    food.style.left = x + "px";
-    food.style.top = y + "px";
+    const cols = canvas.width / dotSize;
+    const rows = canvas.height / dotSize;
+    food.x = Math.floor(Math.random() * cols) * dotSize;
+    food.y = Math.floor(Math.random() * rows) * dotSize;
   }
-
   spawnFood();
 
   function scoreUpdate() {
-    const score = document.getElementById("scoreboard");
-    score.textContent = "SCORE: " + (snake.length - 1);
+    document.getElementById("score").textContent =
+      "SCORE: " + (snake.length - 1);
   }
 
-  function move() {
-    const headX = snake[0].offsetLeft + dx;
-    console.log(headX, "head X")
-    const headY = snake[0].offsetTop + dy;
-    console.log(headY, "head Y");
+  function moveSnake() {
+    const head = {
+      x: snake[0].x + dx,
+      y: snake[0].y + dy,
+    };
 
+    if (
+      head.x < 0 ||
+      head.x >= canvas.width ||
+      head.y < 0 ||
+      head.y >= canvas.height
+    )
+      return window.Error("Game over"); // hit wall
 
-    const maxX = container.getClientRects()[0].width - dotSize;
-    // console.log("max X", maxX);
-    const maxY = container.getClientRects()[0].height - dotSize;
-    // console.log("max Y", maxY);
+    snake.unshift(head);
 
-    if (headX < 0 || headX > maxX || headY < 0 || headY > maxY) return;
-
-    // move tail segments
-    for (let i = snake.length - 1; i > 0; i--) {
-      snake[i].style.left = snake[i - 1].style.left;
-      snake[i].style.top = snake[i - 1].style.top;
-    }
-
-    // move head
-    snake[0].style.left = headX + "px";
-    snake[0].style.top = headY + "px";
-
-    // collision with food
-    const foodX = parseInt(food.style.left);
-    const foodY = parseInt(food.style.top);
-
-    if (headX === foodX && headY === foodY) {
-      // add new segment at tail
-      const tail = document.createElement("div");
-      tail.classList.add("segment");
-      const last = snake[snake.length - 1];
-      tail.style.left = last.style.left;
-      tail.style.top = last.style.top;
-      container.appendChild(tail);
-      snake.push(tail);
-
-      scoreUpdate();
+    // ate the food or not check
+    if (head.x === food.x && head.y === food.y) {
       spawnFood();
+      scoreUpdate();
+    } else {
+      snake.pop();
     }
-
-    setTimeout(move, 100); // snake speed
   }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // draw food
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, dotSize, dotSize);
+
+    // draw snake
+    ctx.fillStyle = "gray";
+    snake.forEach((seg) => {
+      ctx.fillRect(seg.x, seg.y, dotSize, dotSize);
+    });
+  }
+
+  function gameLoop() {
+    moveSnake();
+    draw();
+    setTimeout(gameLoop, 100);
+  }
+  gameLoop();
 
   document.addEventListener("keydown", (e) => {
-    switch (e.key) {
-      case "ArrowUp": if(dy===0){ dx=0; dy=-speed; } break;
-      case "ArrowDown": if(dy===0){ dx=0; dy=speed; } break;
-      case "ArrowLeft": if(dx===0){ dx=-speed; dy=0; } break;
-      case "ArrowRight": if(dx===0){ dx=speed; dy=0; } break;
+    const key = e.key.toLowerCase();
+
+    if ((key === "arrowup" || key === "w") && dy === 0) {
+      dx = 0;
+      dy = -dotSize;
+    }
+    if ((key === "arrowdown" || key === "s") && dy === 0) {
+      dx = 0;
+      dy = dotSize;
+    }
+    if ((key === "arrowleft" || key === "a") && dx === 0) {
+      dx = -dotSize;
+      dy = 0;
+    }
+    if ((key === "arrowright" || key === "d") && dx === 0) {
+      dx = dotSize;
+      dy = 0;
     }
   });
-
-  move();
 });

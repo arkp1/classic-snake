@@ -7,11 +7,17 @@ window.addEventListener("DOMContentLoaded", () => {
   canvas.height =
     Math.floor((87 * window.innerHeight) / 100 / dotSize) * dotSize;
 
-  let snake = [{ x: 0, y: 0 }];
-  let dx = dotSize;
-  let dy = 0;
+  let snake, dx, dy, food, gameOver;
 
-  let food = { x: 0, y: 0 };
+  function initGame() {
+    snake = [{ x: 0, y: 0 }];
+    dx = dotSize;
+    dy = 0;
+    food = { x: 0, y: 0 };
+    gameOver = false;
+    spawnFood();
+    scoreUpdate();
+  }
 
   function spawnFood() {
     const cols = canvas.width / dotSize;
@@ -19,30 +25,47 @@ window.addEventListener("DOMContentLoaded", () => {
     food.x = Math.floor(Math.random() * cols) * dotSize;
     food.y = Math.floor(Math.random() * rows) * dotSize;
   }
-  spawnFood();
 
   function scoreUpdate() {
     document.getElementById("score").textContent =
       "SCORE: " + (snake.length - 1);
   }
 
+  function endGame() {
+    gameOver = true;
+    document.getElementById("finalScore").textContent =
+      "Your Score: " + (snake.length - 1);
+    document.getElementById("gameOverCard").style.display = "block";
+  }
+
+  document.getElementById("restartButton").addEventListener("click", () => {
+    initGame();
+    document.getElementById("gameOverCard").style.display = "none";
+    gameLoop();
+  });
+
   function moveSnake() {
-    const head = {
-      x: snake[0].x + dx,
-      y: snake[0].y + dy,
-    };
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+    for (let i = 1; i < snake.length; i++) {
+      if (snake[i].x === head.x && snake[i].y === head.y) {
+        endGame();
+        return;
+      }
+    }
 
     if (
       head.x < 0 ||
       head.x >= canvas.width ||
       head.y < 0 ||
       head.y >= canvas.height
-    )
-      return window.Error("Game over"); // hit wall
+    ) {
+      endGame();
+      return;
+    }
 
     snake.unshift(head);
 
-    // ate the food or not check
     if (head.x === food.x && head.y === food.y) {
       spawnFood();
       scoreUpdate();
@@ -54,27 +77,31 @@ window.addEventListener("DOMContentLoaded", () => {
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // draw food
     ctx.fillStyle = "red";
     ctx.fillRect(food.x, food.y, dotSize, dotSize);
 
-    // draw snake
     ctx.fillStyle = "gray";
-    snake.forEach((seg) => {
-      ctx.fillRect(seg.x, seg.y, dotSize, dotSize);
-    });
+    snake.forEach((seg) => ctx.fillRect(seg.x, seg.y, dotSize, dotSize));
   }
 
   function gameLoop() {
+    if (gameOver) return;
     moveSnake();
     draw();
     setTimeout(gameLoop, 100);
   }
-  gameLoop();
+
+  // Start button logic
+  document.getElementById("startButton").addEventListener("click", () => {
+    initGame();
+    document.getElementById("startCard").style.display = "none";
+    document.getElementById("game").style.display = "block";
+    document.getElementById("score").style.display = "block";
+    gameLoop();
+  });
 
   document.addEventListener("keydown", (e) => {
     const key = e.key.toLowerCase();
-
     if ((key === "arrowup" || key === "w") && dy === 0) {
       dx = 0;
       dy = -dotSize;

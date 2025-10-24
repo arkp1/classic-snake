@@ -16,7 +16,7 @@ body {
 }
 
 #game {
-  border: 10px solid rgba(71, 90, 68, 0.887);
+  border: 10px solid rgba(33, 47, 31, 0.887);
   background: #587c2f;
   display: none;
   /* margin-top: 0px; */
@@ -40,7 +40,6 @@ body {
   border-radius: 10px;
   color: white;
   text-align: center;
-  z-index: 999;
 }
 
 #startButton {
@@ -66,7 +65,7 @@ body {
 }
 
 #restartButton {
-  margin-top: 15px;
+  margin-top: 30px;
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;

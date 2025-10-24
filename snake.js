@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
 
-  const dotSize = 15;
+  const dotSize = 20;
   canvas.width = Math.floor((95 * window.innerWidth) / 100 / dotSize) * dotSize;
   canvas.height =
     Math.floor((87 * window.innerHeight) / 100 / dotSize) * dotSize;
@@ -28,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function scoreUpdate() {
     document.getElementById("score").textContent =
-      "SCORE: " + (snake.length - 1);
+       (snake.length - 1);
   }
 
   function endGame() {
@@ -74,14 +74,40 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // drawing snake + food
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x, food.y, dotSize, dotSize);
+    const mini = dotSize / 3; 
+    ctx.fillStyle = "#000000ff";
 
-    ctx.fillStyle = "gray";
-    snake.forEach((seg) => ctx.fillRect(seg.x, seg.y, dotSize, dotSize));
+    const emptyPositions = [0, 2, 4, 6, 8]; 
+
+    let pos = 0;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (!emptyPositions.includes(pos)) {
+          ctx.fillRect(
+            food.x + j * mini,
+            food.y + i * mini,
+            mini - 1,
+            mini - 1
+          );
+        }
+        pos++;
+      }
+    }
+
+    ctx.fillStyle = "black";
+    snake.forEach((seg) => {
+      const mini = dotSize / 3;
+
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          ctx.fillRect(seg.x + i * mini, seg.y + j * mini, mini - 1, mini - 1);
+        }
+      }
+    });
   }
 
   function gameLoop() {
@@ -91,7 +117,6 @@ window.addEventListener("DOMContentLoaded", () => {
     setTimeout(gameLoop, 100);
   }
 
-  // Start button logic
   document.getElementById("startButton").addEventListener("click", () => {
     initGame();
     document.getElementById("startCard").style.display = "none";

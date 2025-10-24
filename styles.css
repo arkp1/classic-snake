@@ -1,22 +1,28 @@
+@font-face {
+  font-family: "Snake";
+  src: url("./font/snake.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
   margin: 0;
-  background: rgb(128, 210, 6);
-
+  background: #587c2f;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "Snake", monospace;
 }
 
 #game {
-  border: 4px solid grey;
-  background: rgb(128, 210, 6);
+  border: 10px solid rgba(71, 90, 68, 0.887);
+  background: #587c2f;
   display: none;
   /* margin-top: 0px; */
 }
 
 #score {
-  font-family: "Roboto Mono", monospace;
   font-size: 30px;
   font-weight: bold;
   margin-right: auto;
@@ -34,7 +40,6 @@ body {
   border-radius: 10px;
   color: white;
   text-align: center;
-  font-family: "Roboto Mono", monospace;
   z-index: 999;
 }
 
@@ -42,7 +47,6 @@ body {
   margin-top: 15px;
   padding: 10px 20px;
   font-size: 18px;
-  font-family: "Roboto Mono", monospace;
   cursor: pointer;
   border: none;
   border-radius: 5px;
@@ -56,7 +60,6 @@ body {
   transform: translate(-50%, -50%);
   background: black;
   padding: 40px 30px;
-  font-family: "Roboto Mono", monospace;
   font-size: 28px;
   color: white;
   border-radius: 8px;
@@ -66,7 +69,6 @@ body {
   margin-top: 15px;
   padding: 8px 16px;
   font-size: 16px;
-  font-family: "Roboto Mono", monospace;
   cursor: pointer;
   border: none;
   border-radius: 5px;

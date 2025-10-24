@@ -2,4 +2,4 @@
 
 The old school snake game. 
 
-[](images/start_game.png)
+[game](images/start_game.png)

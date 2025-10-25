@@ -22,13 +22,22 @@ window.addEventListener("DOMContentLoaded", () => {
   function spawnFood() {
     const cols = canvas.width / dotSize;
     const rows = canvas.height / dotSize;
-    food.x = Math.floor(Math.random() * cols) * dotSize;
-    food.y = Math.floor(Math.random() * rows) * dotSize;
+
+    let newX, newY, onSnake;
+
+    do {
+      newX = Math.floor(Math.random() * cols) * dotSize;
+      newY = Math.floor(Math.random() * rows) * dotSize;
+
+      onSnake = snake.some((seg) => seg.x === newX && seg.y === newY);
+    } while (onSnake);
+
+    food.x = newX;
+    food.y = newY;
   }
 
   function scoreUpdate() {
-    document.getElementById("score").textContent =
-       (snake.length - 1);
+    document.getElementById("score").textContent = snake.length - 1;
   }
 
   function endGame() {
@@ -78,10 +87,10 @@ window.addEventListener("DOMContentLoaded", () => {
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const mini = dotSize / 3; 
+    const mini = dotSize / 3;
     ctx.fillStyle = "#000000ff";
 
-    const emptyPositions = [0, 2, 4, 6, 8]; 
+    const emptyPositions = [0, 2, 4, 6, 8];
 
     let pos = 0;
     for (let i = 0; i < 3; i++) {

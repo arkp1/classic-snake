@@ -2,9 +2,10 @@
 
 The old school snake game. 
 
-To-Do List:
-- Score tracking.
+![](./images/start_game.png)
 
-- Increasing difficulty as the snake grows.
+![](./images/game.png)
 
-- Minimalist, retro design.
+![](./images/game_over.png)
+
+

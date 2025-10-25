@@ -123,7 +123,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (gameOver) return;
     moveSnake();
     draw();
-    setTimeout(gameLoop, 100);
+    setTimeout(gameLoop, 150);
   }
 
   document.getElementById("startButton").addEventListener("click", () => {

@@ -1,6 +1,6 @@
 [WIP]
 
-The old school snake game. 
+The original snake game. 
 
 ![](./images/start_game.png)
 

@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
     } while (onSnake);
 
     food.x = newX;
-    food.y = newY;
+    food.y = newY; 
   }
 
   function scoreUpdate() {

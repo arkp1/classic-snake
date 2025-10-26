@@ -1,6 +1,6 @@
 [WIP]
 
-The original snake game. 
+The original 1998 snake game. 
 
 ![](./images/start_game.png)
 

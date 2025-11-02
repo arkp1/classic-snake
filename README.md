@@ -16,7 +16,7 @@ The original 1998 snake game.
    git clone [repo-url]https://github.com/arkp1/snake.git
    cd <project-folder>
    ```
-2. Open index.html
+2. Run index.html
 
 ## Stack
    - Javascript

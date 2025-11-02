@@ -1,4 +1,3 @@
-[WIP]
 
 The original 1998 snake game. 
 

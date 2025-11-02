@@ -9,4 +9,12 @@ The original 1998 snake game.
 
 ![](./images/game_over.png)
 
+## Run Locally
+
+1. Clone the repo
+   ```sh
+   git clone <repo-url>
+   cd <project-folder>
+
+
 

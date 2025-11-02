@@ -15,6 +15,11 @@ The original 1998 snake game.
    ```sh
    git clone [repo-url]https://github.com/arkp1/snake.git
    cd <project-folder>
+   ```
+## Stack
+   - Javascript
+   - CSS
+   - HTML
 
 
 

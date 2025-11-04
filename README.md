@@ -1,11 +1,27 @@
-[WIP]
 
-The old school snake game. 
+The original 1998 snake game. 
+
+[Live Demo](https://snake-98.vercel.app/)
 
 ![](./images/start_game.png)
 
 ![](./images/game.png)
 
 ![](./images/game_over.png)
+
+## Run Locally
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/arkp1/snake.git
+   cd <project-folder>
+   ```
+2. Run index.html
+
+## Stack
+   - Javascript
+   - CSS
+   - HTML
+
 
 
